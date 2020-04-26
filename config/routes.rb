@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   # put "/users/:id" => "users#update"     #編集画面からの入力を受けて更新処理
   # delete "/users/:id" => "users#destroy" #一覧画面で選択されたデータを削除処理
   
+  resources :account_activations, only:[:edit]
 end

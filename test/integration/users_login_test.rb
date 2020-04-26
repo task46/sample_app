@@ -4,6 +4,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   
    def setup
     @user = users(:michael)
+    #アクティブ化されていないユーザーをセットアップ
+    @non_activated_user = users(:hoge)
    end
 
   test "login with invalid information" do
@@ -26,6 +28,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", user_path(@user)
+  end
+  
+  test "login as non-activated user" do 
+    log_in_as(@non_activated_user)
+    assert_redirected_to root_url
   end
   
   test "login with valid information followed by logout" do
