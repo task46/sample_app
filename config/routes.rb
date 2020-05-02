@@ -15,9 +15,11 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  
-  
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   # get "/users" => "users#index"          #ユーザー一覧画面を生成
   # get "/users/:id" => "users#show"       #個別ユーザー詳細画面を生成
   # get "/users/new" => "users#new"        #新規ユーザー登録画面を生成
@@ -45,5 +47,5 @@ Rails.application.routes.draw do
   # patch  "/password_resets/new"  update   password_reset_url(token)
   
   resources :microposts,          only: [:create, :destroy]
-     
+  resources :relationships,       only: [:create, :destroy]  
 end
